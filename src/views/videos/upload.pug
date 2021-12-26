@@ -1,0 +1,31 @@
+extends  ../base
+
+block content 
+    include ../partials/form-header
+    div.upload__container
+        div.btn-box
+            div.btn-info What A Nice! 한 영상을 
+                br
+                | 직접 녹화하고 싶을 경우 버튼을 눌러주세요!
+            button.ask-record__btn Recorder 켜기
+        div.upload__video
+            video#recording
+            button#actionBtn.social__btn 녹화 시작
+        if errorMessage 
+            span.error-message #{errorMessage}
+        form(method="POST", enctype="multipart/form-data", name="form")
+            label(for="video").input-label Video File
+            input(type="file", accept="video/*", required, id="video", name="video")
+            label(for="thumb").input-label Thumbnail File
+            input(type="file", accept="image/*", id="thumb", name="thumb")
+            input(type="text", placeholder="Title", required, name="title", maxlength=80)
+            input(type="description", placeholder="Description", required, name="description", minlength=5)
+            input(placeholder="Hashtags, separated by comma.", required, type="text", name="hashtags")
+            select(name="category", id="category", required).category
+                option(value="info", disabled, selected) Choose the category of video. 
+                option(value="goals") What A Goal!!
+                option(value="funs")  What A Fun!!
+                option(value="recordings")  What A Recording!!
+            input(type="submit", value="Upload Video").upload__submit
+block scripts
+    script(src="/static/js/recorder.js")

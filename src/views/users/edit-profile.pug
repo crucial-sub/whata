@@ -1,0 +1,23 @@
+extends  ../base
+
+block content 
+    form(method="POST", enctype="multipart/form-data")
+        if loggedInUser.avatarUrl === undefined
+            img(src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png", width="100", height="100")
+        else
+            if loggedInUser.socialOnly
+                img(src=loggedInUser.avatarUrl, width="100", height="100")
+            else
+                img(src="/" + loggedInUser.avatarUrl, width="100", height="100")
+        label(for="avatar").input-label Avatar
+        input(type="file", id="avatar", name="avatar", accept="image/*")
+        label(for="ID").input-label ID
+        input(type="text", placeholder="ID", required, name="loginId", value=loggedInUser.loginId)
+        label(for="Name").input-label Name
+        input(type="text", placeholder="Name", required, name="name", value=loggedInUser.name)
+        label(for="Email").input-label Email
+        input(type="email", placeholder="Email", required, name="email", value=loggedInUser.email)
+        input(type="submit", value="Update Profile")
+    if !loggedInUser.socialOnly
+        hr
+        a(href="change-password") Change Password &rarr;

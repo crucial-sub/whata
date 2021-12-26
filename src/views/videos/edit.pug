@@ -1,0 +1,21 @@
+extends  ../base
+
+block content 
+    form(method="post").edit-video__form
+        div
+            label(for="title").input-label title
+            input(type="text", placeholder="title", name="title", id="title", value=video.title)
+        div
+            label(for="description").input-label description
+            input(type="text", placeholder="description", name="description", id="description", value=video.description)
+        div
+            label(for="hashtags").input-label hashtags
+            input(type="text", placeholder="hashtags", name="hashtags", id="hashtags", value=video.hashtags.join())
+        div
+            label(for="category").input-label category
+            select(name="category", id="category", required).category
+                option(value="info", disabled, selected) Choose the category of video. 
+                option(value="goal") What A Goal!!
+                option(value="fun")  What A Fun!!
+                option(value="recording")  What A Recording!!
+        input(type="submit", value="SAVE")

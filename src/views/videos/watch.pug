@@ -1,0 +1,76 @@
+extends ../base
+block content
+    div#videoContainer(data-id=video._id)
+        video(src="/" + video.fileUrl)
+        div#videoControls.videoControls
+            div.videoControls__play
+                span#play.videoControls__playBtn
+                    i.fas.fa-play
+                div.videoControls__time
+                    span#currenTime 00:00
+                    span  / 
+                    span#totalTime 00:00
+            input(type="range",step="1", value="0", min="0")#timeline.videoControls__timelin
+            div.videoControls__volume
+                input(type="range",step="0.1", value=0.5, min="0", max="1")#volume
+                span#mute
+                    i.fas.fa-volume-up
+            div
+                span#fullScreen
+                    i.fas.fa-expand
+    div.video__info
+        div.video-title #{video.title}
+        div.video-description #{video.description}
+        div.video-category
+            div video of 
+                a(href=`/videos/${video.category}`) What A #{video.category}!
+        div.video-owner Uploaded by 
+            a(href=`/users/${video.owner._id}`)
+                if video.owner.avatarUrl === undefined
+                    img(src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png", width="15", height="15")
+                else
+                    if video.owner.socialOnly
+                        img(src=video.owner.avatarUrl, width="15", height="15")
+                    else
+                        img(src="/" + video.owner.avatarUrl, width="15", height="15")
+                span #{video.owner.name}
+        div.video-createdAt=new Date(video.createdAt).toLocaleDateString("ko-kr", {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})
+        div.video-hashtags #{video.hashtags}
+        div.video-views #{video.meta.views}회
+    if String(video.owner._id) === String(loggedInUser._id)
+        div.video-owner__btn
+            a(href=`${video.id}/edit`) Edit Video
+            a(href=`${video.id}/delete`) Delete Video
+    div.comments-container
+        span.comments-count
+        if loggedIn
+            div.video__add-comments
+                form.video__comment-form#commentForm
+                    textarea(cols="30", rows="10", placeholder="Write a nice commment...")
+                    button.comment-btn 등록
+        div.video__comments
+            ul
+                each comment in video.comments.reverse()
+                    li.video__comment(data-id=comment.id)
+                        div.comment-avatar__box.comment-item
+                            a(href=`/users/${comment.owner._id}`)
+                                if comment.owner.avatarUrl === undefined
+                                    img(src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png").comment-avatar
+                                else
+                                    if comment.owner.socialOnly
+                                        img(src=comment.owner.avatarUrl).comment-avatar
+                                    else 
+                                        img(src="/" + comment.owner.avatarUrl).comment-avatar
+                        div.comment-content__box.comment-item
+                            div.comment-info
+                                a(href=`/users/${comment.owner._id}`)
+                                    span#comment-owner(data-id=comment.owner) #{comment.owner.name}
+                                span.comment-createdAt=new Date(comment.createdAt).toLocaleDateString("ko-kr", {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})
+                            div.comment-text__box
+                                span.comment-text #{comment.text}
+                        if String(comment.owner._id) === String(loggedInUser._id)
+                            span.delete__btn.comment-item(data-id=comment.id, style="cursor:pointer") ❌
+block scripts 
+    script(src="/static/js/videoPlayer.js")
+    if loggedIn
+        script(src="/static/js/commentSection.js")  

@@ -1,0 +1,29 @@
+extends ../base
+include ../mixins/video
+
+block content
+    include ../partials/form-header
+    div.profile__info
+        if user.avatarUrl === undefined
+            img(src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png").profile__avatar
+        else
+            if user.socialOnly
+                img(src=user.avatarUrl).profile__avatar
+            else 
+                img(src="/" + user.avatarUrl).profile__avatar
+        div.profile__userData ID: #{user.loginId}
+        div.profile__userData Name: #{user.name}
+        div.profile__userData Email: #{user.email}
+        if String(loggedInUser._id) === String(user.id)
+            div.profile__btn
+                a(href="/users/edit") Edit Profile
+                a(href="/users/change-password") Change Password
+    div.profile__video
+        div.profile__video-title #{user.name}'s Video
+        div.profile__video-grid
+            each video in user.videos
+                +video(video)
+            else
+                li Sorry nothing found. 
+block scripts
+    script(src="/static/js/videoPreview.js")

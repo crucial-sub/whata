@@ -1,0 +1,16 @@
+extends  ../base
+
+block content 
+    div.form-container.join-form
+        if errorMessage 
+            span=errorMessage 
+        include ../partials/form-header
+        form(method="post")
+            input(type="text", placeholder="ID", required, name="loginId")
+            input(type="password", placeholder="Password", required, name="password")
+            input(type="password", placeholder="Confirm Password", required, name="password2")
+            input(type="text", placeholder="Name", required, name="name")
+            input(type="email", placeholder="Email", required, name="email")
+            input(type="submit", value="JOIN NOW")
+        div
+            include ../partials/social-login

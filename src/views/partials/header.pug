@@ -1,0 +1,43 @@
+header
+    div.wrapper
+        div.top
+            div.header__logo
+                a(href="/")
+                    i.far.fa-flushed
+                    span WhatA
+            nav.logged__info
+                ul
+                    if loggedIn
+                        li.logged__li.logggedIn__li
+                            a(href="/videos/upload")
+                                i.fas.fa-upload
+                                span UPLOAD
+                        li.logged__li.loggedIn__li
+                            a(href=`/users/${loggedInUser._id}`)
+                                i.fas.fa-user-circle
+                                span PROFILE
+                        li.logged__li.loggedIn__li
+                            a(href="/users/logout")
+                                i.fas.fa-sign-out-alt
+                                span LOGOUT
+                    else
+                        li.logged__li
+                            a(href="/join")
+                                i.fas.fa-user-plus 
+                                span JOIN
+                        li.logged__li
+                            a(href="/login")
+                                i.fas.fa-sign-in-alt
+                                span LOGIN
+            form(method="GET", action="/search").search__form
+                input(placeholder="Search by title",name="keyword", type="text").search__input
+                button.search__btn
+                    i.fas.fa-search
+        //- div.gnb
+        //-     ul 
+        //-         li
+        //-             a(href="/videos/goals") What A Goal! 
+        //-         li 
+        //-             a(href="/videos/funs") What A Fun! 
+        //-         li 
+        //-             a(href="/videos/recordings") What A Recording!

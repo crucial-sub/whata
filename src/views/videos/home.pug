@@ -1,0 +1,31 @@
+extends  ../base
+include ../mixins/video
+
+block content 
+    div.video-container
+        div.video-box.goals
+            div.category__title
+                a(href="/videos/goals") What A Goals! 
+            div.video-grid
+                each goalVideo in goals
+                    +video(goalVideo)
+                else
+                    li Sorry.. Nothing found.
+        div.video-box.funs
+            div.category__title
+                a(href="/videos/funs") What A Funs! 
+            div.video-grid
+                each funVideo in funs
+                    +video(funVideo)
+                else
+                    li Sorry.. Nothing found.
+        div.video-box.recordings
+            div.category__title
+                a(href="/videos/recordings") What A Recordings!
+            div.video-grid
+                each recording in recordings
+                    +video(recording)
+                else
+                    li Sorry.. Nothing found.
+block scripts
+    script(src="/static/js/videoPreview.js")

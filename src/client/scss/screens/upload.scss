@@ -1,0 +1,78 @@
+.upload__container {
+    width: 100%;
+
+    .upload__video {
+        margin-bottom: 40px;
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        
+
+        video {
+            max-width: 100%;
+            margin-bottom: 10px;
+        }
+    }
+
+    .show-recorder {
+        display: flex;
+    }
+}
+
+.btn-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 5px;
+    // border: 1px rgb(21, 39, 46) solid;
+    background-color: rgb(207, 227, 245);
+    padding: 15px;
+    width: 400px;
+    margin: 30px auto;
+
+    div {
+        text-align: center;
+        color: black;
+    }
+
+    button {
+        margin-top: 15px;
+        width: 130px;
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+        background-color: rgb(27,100,240);
+        color: white;
+    }
+}
+
+.social__btn {
+    background-color: rgb(27,100,240) !important;
+    color: rgba($color: $pink, $alpha: 1) !important;
+    text-align: center !important;
+    cursor: pointer;
+    display: block;
+    border: none;
+    font-size: 1rem;
+    border-radius: 5px;
+    padding: 10px;
+
+    &:focus {
+        outline: none;
+    }
+
+    &:disabled {
+        opacity: 0.5;
+        pointer-events: none;
+    }
+}
+
+.error-message {
+    display: block;
+    text-align: center;
+    padding: 5px;
+    margin: 15px auto;
+    border-radius: 9999px;
+    background-color: rgb(255, 198, 188);
+    width: 320px;
+}

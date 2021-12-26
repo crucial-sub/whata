@@ -1,0 +1,12 @@
+extends  ../base
+include ../mixins/video
+
+block content 
+    h1=pageTitle 
+    div.video-grid
+        each goalVideo in goals
+            +video(goalVideo)
+        else
+            li Sorry.. Nothing found.
+block scripts
+    script(src="/static/js/videoPreview.js")
