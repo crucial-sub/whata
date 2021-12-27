@@ -6,7 +6,7 @@ const videoContainer = document.getElementById("videoContainer");
 const form = document.getElementById("commentForm");
 
 
-const addComment = (text, comment) => {
+const addComment = (text, comment, isHeroku) => {
 
     const time = comment.createdAt;
 
@@ -24,8 +24,11 @@ const addComment = (text, comment) => {
     if(!comment.owner.avatarUrl) {
         avatar.setAttribute("src", "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png")
     } else {
-        avatar.setAttribute("src", comment.owner.avatarUrl);
-
+        if(isHeroku) {
+            avatar.setAttribute("src", comment.owner.avatarUrl);
+        } else {
+            avatar.setAttribute("src", `/${comment.owner.avatarUrl}`);
+        }
     }
     avatar.className = "comment-avatar";
 
@@ -108,9 +111,10 @@ const handleSubmit = async (event) => {
     if (response.status === 201) {
         textarea.value = "";
         const {
-            newComment
+            newComment,
+            isHeroku
         } = await response.json();
-        addComment(text, newComment);
+        addComment(text, newComment, isHeroku);
     }
 };
 

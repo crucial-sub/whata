@@ -169,13 +169,14 @@ export const postUpload = async (req, res) => {
             errorMessage: "Please choose the type of video.",
         });
     }
+    const isHeroku = process.env.NODE_ENV === "production";
     try {
         let newVideo
         if (!thumb) {
             newVideo = await Video.create({
                 title,
                 description,
-                fileUrl: video[0].location,
+                fileUrl: isHeroku ? video[0].location : video[0].path,
                 owner: _id,
                 hashtags: Video.hashtagForm(hashtags),
                 category,
@@ -184,8 +185,8 @@ export const postUpload = async (req, res) => {
             newVideo = await Video.create({
                 title,
                 description,
-                fileUrl: video[0].location,
-                thumbUrl: thumb[0].location,
+                fileUrl: isHeroku ? video[0].location : video[0].path,
+                thumbUrl: isHeroku ? thumb[0].location : thumb[0].path,
                 owner: _id,
                 hashtags: Video.hashtagForm(hashtags),
                 category,
@@ -327,10 +328,12 @@ export const createComment = async (req, res) => {
     video.save();
     // commentOwner.comments.push(comment._id);
     // commentOwner.save();
+    const isHeroku = process.env.NODE_ENV === "production";
     return res.status(201).json({
         // newCommentId: newComment._id,
         // newCommentOwner: newComment.owner
-        newComment
+        newComment,
+        isHeroku
         // commentOwner: commentOwner.name
     });
 };

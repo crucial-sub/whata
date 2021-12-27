@@ -2,8 +2,12 @@ mixin video(video)
     div.video-item
         a(href=`/videos/${video.id}`).video-item__a
             div.video_box
-                div.video-mixin__thumb(style=`background-image:url(${video.thumbUrl});background-size:cover;background-position:center;`)
-                video(src=video.fileUrl, preload, muted="muted").video-item__preview
+                if isHeroku
+                    div.video-mixin__thumb(style=`background-image:url(${video.thumbUrl});background-size:cover;background-position:center;`)
+                    video(src=video.fileUrl, preload, muted="muted").video-item__preview
+                else 
+                    div.video-mixin__thumb(style=`background-image:url(/${video.thumbUrl});background-size:cover;background-position:center;`)
+                    video(src="/" + video.fileUrl, preload, muted="muted").video-item__preview
             span.video-item__title=video.title
             span.comment-count [#{video.commentsCount}]
             div.video-item__data
@@ -11,6 +15,9 @@ mixin video(video)
                     if video.owner.avatarUrl === undefined
                         img(src="https://www.nicepng.com/png/full/128-1280406_view-user-icon-png-user-circle-icon-png.png", width="15", height="15")
                     else
-                        img(src=video.owner.avatarUrl, width="15", height="15")
+                        if isHeroku
+                            img(src=video.owner.avatarUrl, width="15", height="15")
+                        else
+                            img(src="/" + video.owner.avatarUrl, width="15", height="15")
                     span #{video.owner.name} • 
                 span #{video.meta.views} 회

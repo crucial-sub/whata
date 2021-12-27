@@ -217,10 +217,10 @@ export const postEdit = async (req, res) => {
             })
         }
     }
-    console.log(file);
+    const isHeroku = process.env.NODE_ENV === "production";
     const updateUser = await User.findByIdAndUpdate(
         _id, {
-            avatarUrl: file ? file.location : avatarUrl,
+            avatarUrl: file ? (isHeroku ? file.location : file.path) : avatarUrl,
             loginId,
             name,
             email,
@@ -286,7 +286,13 @@ export const see = async (req, res) => {
     const {
         id
     } = req.params;
-    const user = await User.findById(id).populate("videos");
+    const user = await User.findById(id).populate({
+        path: "videos",
+        populate: {
+            path: "owner",
+            model: "User",
+        }
+    });
     if (!user) {
         return res.status(404).render("404", {
             pageTitle: "User not found."
