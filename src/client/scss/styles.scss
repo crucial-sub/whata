@@ -67,6 +67,8 @@ main {
   animation: goAway 0.5s ease-in-out forwards;
   animation-delay: 5s;
   z-index: 5;
+  background-color: tomato;
+  color: white;
 
   &.error {
     background-color: tomato;
