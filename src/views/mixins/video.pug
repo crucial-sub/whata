@@ -11,9 +11,6 @@ mixin video(video)
                     if video.owner.avatarUrl === undefined
                         img(src="https://www.nicepng.com/png/full/128-1280406_view-user-icon-png-user-circle-icon-png.png", width="15", height="15")
                     else
-                        if video.owner.socialOnly
-                            img(src=video.owner.avatarUrl, width="15", height="15")
-                        else
-                            img(src="/" + video.owner.avatarUrl, width="15", height="15")
+                        img(src=video.owner.avatarUrl, width="15", height="15")
                     span #{video.owner.name} • 
                 span #{video.meta.views} 회

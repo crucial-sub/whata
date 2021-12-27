@@ -7,10 +7,7 @@ block content
         if user.avatarUrl === undefined
             img(src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png").profile__avatar
         else
-            if user.socialOnly
-                img(src=user.avatarUrl).profile__avatar
-            else 
-                img(src="/" + user.avatarUrl).profile__avatar
+            img(src=user.avatarUrl).profile__avatar
         div.profile__userData ID: #{user.loginId}
         div.profile__userData Name: #{user.name}
         div.profile__userData Email: #{user.email}

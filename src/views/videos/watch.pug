@@ -1,7 +1,7 @@
 extends ../base
 block content
     div#videoContainer(data-id=video._id)
-        video(src="/" + video.fileUrl)
+        video(src=video.fileUrl)
         div#videoControls.videoControls
             div.videoControls__play
                 span#play.videoControls__playBtn
@@ -29,10 +29,7 @@ block content
                 if video.owner.avatarUrl === undefined
                     img(src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png", width="15", height="15")
                 else
-                    if video.owner.socialOnly
-                        img(src=video.owner.avatarUrl, width="15", height="15")
-                    else
-                        img(src="/" + video.owner.avatarUrl, width="15", height="15")
+                    img(src=video.owner.avatarUrl, width="15", height="15")
                 span #{video.owner.name}
         div.video-createdAt=new Date(video.createdAt).toLocaleDateString("ko-kr", {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})
         div.video-hashtags #{video.hashtags}
@@ -57,10 +54,7 @@ block content
                                 if comment.owner.avatarUrl === undefined
                                     img(src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png").comment-avatar
                                 else
-                                    if comment.owner.socialOnly
-                                        img(src=comment.owner.avatarUrl).comment-avatar
-                                    else 
-                                        img(src="/" + comment.owner.avatarUrl).comment-avatar
+                                    img(src=comment.owner.avatarUrl).comment-avatar
                         div.comment-content__box.comment-item
                             div.comment-info
                                 a(href=`/users/${comment.owner._id}`)
